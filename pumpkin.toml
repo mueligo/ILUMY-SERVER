@@ -1,0 +1,32 @@
+# ==========================================
+# ILUMY Pumpkin Minecraft Server Config
+# Optimized for Hostless (0.5 vCPU / 1GB RAM)
+# ==========================================
+
+default_difficulty = "Normal"
+op_permission_level = 4
+allow_nether = true
+allow_end = true
+hardcore = false
+
+[server]
+motd = "ILUMY Pumpkin Server"
+max_players = 10
+online_mode = false # Mengizinkan akun original dan offline/crack
+view_distance = 8   # Dioptimalkan untuk 0.5 CPU agar hemat resource
+simulation_distance = 6
+
+[networking]
+address = "0.0.0.0:25565"
+
+[networking.bedrock]
+enabled = false
+
+[pvp]
+enabled = true
+hurt_animation = true
+knockback = true
+
+[player_data]
+save_player_data = true
+save_player_cron_interval = 60 # Autosave player data tiap 60 detik

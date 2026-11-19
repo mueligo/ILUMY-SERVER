@@ -1,0 +1,6 @@
+world/
+logs/
+*.log
+*.tmp
+.playit/
+playit.toml
