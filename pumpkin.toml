@@ -9,6 +9,7 @@ op_permission_level = 4
 allow_nether = true
 allow_end = true
 hardcore = false
+allow_chat_reports = false
 
 [networking.java]
 enabled = true

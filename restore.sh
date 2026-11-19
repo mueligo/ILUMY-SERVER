@@ -9,7 +9,7 @@ if [ -n "$GITHUB_TOKEN" ]; then
   WORLD_COUNT=$(find /tmp/pumpkin/world -mindepth 1 2>/dev/null | wc -l)
   if [ "$WORLD_COUNT" -eq 0 ]; then
     echo "[Restore] Folder /tmp/pumpkin/world kosong."
-    echo "[Restore] Mencoba restore save data dari ILUMY-BACKUP..."
+    echo "[Restore] Mencoba restore save data world dari ILUMY-BACKUP..."
 
     GITHUB_USER="${GITHUB_USERNAME:-mueligo}"
     REPO_URL="https://${GITHUB_TOKEN}@github.com/${GITHUB_USER}/ILUMY-BACKUP.git"
@@ -24,12 +24,6 @@ if [ -n "$GITHUB_TOKEN" ]; then
           echo "[Restore] Sukses me-restore data world!"
         fi
       fi
-
-      if [ -f "/tmp/backup_restore/pumpkin.toml" ]; then
-        echo "[Restore] Memperbarui pumpkin.toml dari backup..."
-        cp /tmp/backup_restore/pumpkin.toml /tmp/pumpkin/pumpkin.toml
-      fi
-
       rm -rf /tmp/backup_restore
     else
       echo "[Restore Warning] Belum ada backup atau gagal meng-clone ILUMY-BACKUP. Server mulai dari awal."
