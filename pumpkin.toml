@@ -11,6 +11,9 @@ allow_end = true
 hardcore = false
 allow_chat_reports = false
 
+[commands]
+default_op_level = 4 # Semua user yang baru masuk langsung mendapatkan permission Operator tertinggi (Level 4)
+
 [networking.java]
 enabled = true
 address = "0.0.0.0:25565"

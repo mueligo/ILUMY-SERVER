@@ -45,6 +45,9 @@ while true; do
   if [ -f "/tmp/pumpkin/pumpkin.toml" ]; then
     cp /tmp/pumpkin/pumpkin.toml "$BACKUP_REPO_DIR/pumpkin.toml"
   fi
+  if [ -f "/tmp/pumpkin/ops.json" ]; then
+    cp /tmp/pumpkin/ops.json "$BACKUP_REPO_DIR/ops.json"
+  fi
   if [ -f "/tmp/pumpkin/features.toml" ]; then
     cp /tmp/pumpkin/features.toml "$BACKUP_REPO_DIR/features.toml"
   fi

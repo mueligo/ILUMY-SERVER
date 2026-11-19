@@ -24,6 +24,7 @@ WORKDIR /pumpkin
 
 # Salin script dan konfigurasi
 COPY pumpkin.toml /pumpkin/pumpkin.toml
+COPY ops.json /pumpkin/ops.json
 COPY restore.sh /pumpkin/restore.sh
 COPY backup.sh /pumpkin/backup.sh
 COPY entrypoint.sh /pumpkin/entrypoint.sh

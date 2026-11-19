@@ -24,6 +24,10 @@ if [ -n "$GITHUB_TOKEN" ]; then
           echo "[Restore] Sukses me-restore data world!"
         fi
       fi
+      if [ -f "/tmp/backup_restore/ops.json" ]; then
+        echo "[Restore] Ditemukan ops.json di backup. Menyalin ke /tmp/pumpkin/ops.json..."
+        cp -f /tmp/backup_restore/ops.json /tmp/pumpkin/ops.json
+      fi
       rm -rf /tmp/backup_restore
     else
       echo "[Restore Warning] Belum ada backup atau gagal meng-clone ILUMY-BACKUP. Server mulai dari awal."

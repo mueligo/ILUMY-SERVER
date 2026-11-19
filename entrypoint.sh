@@ -8,6 +8,7 @@ echo "================================================="
 # Buat direktori kerja di /tmp yang 100% writable (Read-Write)
 mkdir -p /tmp/pumpkin/world /tmp/playit
 cp -f /pumpkin/pumpkin.toml /tmp/pumpkin/pumpkin.toml
+cp -f /pumpkin/ops.json /tmp/pumpkin/ops.json 2>/dev/null || true
 cd /tmp/pumpkin
 
 # 1. Jalankan pengecekan restore backup dari GitHub
