@@ -6,7 +6,7 @@
 # Tunggu 60 detik setelah server start agar world awal sudah ter-generate
 sleep 60
 
-BACKUP_REPO_DIR="/pumpkin_backup_git"
+BACKUP_REPO_DIR="/tmp/pumpkin_backup_git"
 
 if [ -z "$GITHUB_TOKEN" ]; then
   echo "[Backup Warning] GITHUB_TOKEN belum diset di environment variables."
@@ -35,18 +35,18 @@ echo "[Backup Daemon] Aktif! Backup akan dijalankan otomatis setiap 30 menit..."
 while true; do
   echo "[Backup] Memulai proses sinkronisasi data: $(date -u +'%Y-%m-%d %H:%M:%S UTC')..."
 
-  # Sinkronisasi folder world
-  if [ -d "/pumpkin/world" ]; then
+  # Sinkronisasi folder world dari /tmp/pumpkin/world
+  if [ -d "/tmp/pumpkin/world" ]; then
     mkdir -p "$BACKUP_REPO_DIR/world"
-    rsync -av --delete --exclude='*.lock' --exclude='*.tmp' /pumpkin/world/ "$BACKUP_REPO_DIR/world/"
+    rsync -av --delete --exclude='*.lock' --exclude='*.tmp' /tmp/pumpkin/world/ "$BACKUP_REPO_DIR/world/"
   fi
 
   # Salin file konfigurasi
-  if [ -f "/pumpkin/pumpkin.toml" ]; then
-    cp /pumpkin/pumpkin.toml "$BACKUP_REPO_DIR/pumpkin.toml"
+  if [ -f "/tmp/pumpkin/pumpkin.toml" ]; then
+    cp /tmp/pumpkin/pumpkin.toml "$BACKUP_REPO_DIR/pumpkin.toml"
   fi
-  if [ -f "/pumpkin/features.toml" ]; then
-    cp /pumpkin/features.toml "$BACKUP_REPO_DIR/features.toml"
+  if [ -f "/tmp/pumpkin/features.toml" ]; then
+    cp /tmp/pumpkin/features.toml "$BACKUP_REPO_DIR/features.toml"
   fi
 
   cd "$BACKUP_REPO_DIR"

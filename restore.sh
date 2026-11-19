@@ -3,12 +3,12 @@
 # ILUMY Server Auto-Restore on Container Boot
 # ==========================================
 
-mkdir -p /pumpkin/world
+mkdir -p /tmp/pumpkin/world
 
 if [ -n "$GITHUB_TOKEN" ]; then
-  WORLD_COUNT=$(find /pumpkin/world -mindepth 1 2>/dev/null | wc -l)
+  WORLD_COUNT=$(find /tmp/pumpkin/world -mindepth 1 2>/dev/null | wc -l)
   if [ "$WORLD_COUNT" -eq 0 ]; then
-    echo "[Restore] Folder /pumpkin/world kosong."
+    echo "[Restore] Folder /tmp/pumpkin/world kosong."
     echo "[Restore] Mencoba restore save data dari ILUMY-BACKUP..."
 
     GITHUB_USER="${GITHUB_USERNAME:-mueligo}"
@@ -19,15 +19,15 @@ if [ -n "$GITHUB_TOKEN" ]; then
       if [ -d "/tmp/backup_restore/world" ]; then
         RESTORE_COUNT=$(find /tmp/backup_restore/world -mindepth 1 2>/dev/null | wc -l)
         if [ "$RESTORE_COUNT" -gt 0 ]; then
-          echo "[Restore] Ditemukan backup world di repo. Menyalin ke /pumpkin/world..."
-          cp -r /tmp/backup_restore/world/* /pumpkin/world/
+          echo "[Restore] Ditemukan backup world di repo. Menyalin ke /tmp/pumpkin/world..."
+          cp -r /tmp/backup_restore/world/* /tmp/pumpkin/world/
           echo "[Restore] Sukses me-restore data world!"
         fi
       fi
 
       if [ -f "/tmp/backup_restore/pumpkin.toml" ]; then
         echo "[Restore] Memperbarui pumpkin.toml dari backup..."
-        cp /tmp/backup_restore/pumpkin.toml /pumpkin/pumpkin.toml
+        cp /tmp/backup_restore/pumpkin.toml /tmp/pumpkin/pumpkin.toml
       fi
 
       rm -rf /tmp/backup_restore
