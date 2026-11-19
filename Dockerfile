@@ -1,8 +1,8 @@
-FROM debian:bookworm-slim
+FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install dependensi sistem
+# Install dependensi sistem yang dibutuhkan
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     ca-certificates \
@@ -28,7 +28,6 @@ COPY restore.sh /pumpkin/restore.sh
 COPY backup.sh /pumpkin/backup.sh
 COPY entrypoint.sh /pumpkin/entrypoint.sh
 
-# Beri izin eksekusi
 RUN chmod +x /pumpkin/*.sh
 
 EXPOSE 25565

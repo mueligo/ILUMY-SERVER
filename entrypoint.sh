@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 echo "================================================="
 echo "  Starting ILUMY Pumpkin Minecraft Server        "
@@ -10,20 +9,20 @@ cd /pumpkin
 
 # 1. Jalankan pengecekan restore backup dari GitHub
 if [ -f "/pumpkin/restore.sh" ]; then
-  bash /pumpkin/restore.sh
+  bash /pumpkin/restore.sh || true
 fi
 
 # 2. Jalankan Playit.gg tunnel di background
 echo "[Playit] Menyalakan Playit.gg tunnel agent..."
 if [ -n "$SECRET_KEY" ]; then
-  echo "[Playit] Menjalankan Playit dengan SECRET_KEY dari Environment Variable..."
-  playitd --secret "$SECRET_KEY" &
+  echo "[Playit] Menjalankan Playit dengan SECRET_KEY..."
+  playitd --secret "$SECRET_KEY" --platform-docker &
 elif [ -n "$PLAYIT_SECRET_KEY" ]; then
-  echo "[Playit] Menjalankan Playit dengan PLAYIT_SECRET_KEY dari Environment Variable..."
-  playitd --secret "$PLAYIT_SECRET_KEY" &
+  echo "[Playit] Menjalankan Playit dengan PLAYIT_SECRET_KEY..."
+  playitd --secret "$PLAYIT_SECRET_KEY" --platform-docker &
 else
-  echo "[Playit] SECRET_KEY belum diset. Menjalankan playitd mode klaim..."
-  playitd &
+  echo "[Playit] Menjalankan playitd tanpa secret (mode klaim)..."
+  playitd --platform-docker &
 fi
 
 # 3. Jalankan daemon auto backup 30 menit di background

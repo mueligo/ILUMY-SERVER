@@ -3,9 +3,12 @@
 # ILUMY Server Auto-Restore on Container Boot
 # ==========================================
 
+mkdir -p /pumpkin/world
+
 if [ -n "$GITHUB_TOKEN" ]; then
-  if [ ! -d "/pumpkin/world" ] || [ -z "$(ls -A /pumpkin/world 2>/dev/null)" ]; then
-    echo "[Restore] Folder /pumpkin/world kosong atau belum ada."
+  WORLD_COUNT=$(find /pumpkin/world -mindepth 1 2>/dev/null | wc -l)
+  if [ "$WORLD_COUNT" -eq 0 ]; then
+    echo "[Restore] Folder /pumpkin/world kosong."
     echo "[Restore] Mencoba restore save data dari ILUMY-BACKUP..."
 
     GITHUB_USER="${GITHUB_USERNAME:-mueligo}"
@@ -13,13 +16,13 @@ if [ -n "$GITHUB_TOKEN" ]; then
 
     rm -rf /tmp/backup_restore
     if git clone --depth 1 "$REPO_URL" /tmp/backup_restore 2>/dev/null; then
-      if [ -d "/tmp/backup_restore/world" ] && [ -n "$(ls -A /tmp/backup_restore/world 2>/dev/null)" ]; then
-        echo "[Restore] Ditemukan backup world di repo. Menyalin ke /pumpkin/world..."
-        mkdir -p /pumpkin/world
-        cp -r /tmp/backup_restore/world/* /pumpkin/world/
-        echo "[Restore] Sukses me-restore data world!"
-      else
-        echo "[Restore] Belum ada backup world di repo (server baru pertama kali jalan)."
+      if [ -d "/tmp/backup_restore/world" ]; then
+        RESTORE_COUNT=$(find /tmp/backup_restore/world -mindepth 1 2>/dev/null | wc -l)
+        if [ "$RESTORE_COUNT" -gt 0 ]; then
+          echo "[Restore] Ditemukan backup world di repo. Menyalin ke /pumpkin/world..."
+          cp -r /tmp/backup_restore/world/* /pumpkin/world/
+          echo "[Restore] Sukses me-restore data world!"
+        fi
       fi
 
       if [ -f "/tmp/backup_restore/pumpkin.toml" ]; then
@@ -29,7 +32,7 @@ if [ -n "$GITHUB_TOKEN" ]; then
 
       rm -rf /tmp/backup_restore
     else
-      echo "[Restore Warning] Gagal meng-clone ILUMY-BACKUP. Server akan mulai dari awal."
+      echo "[Restore Warning] Belum ada backup atau gagal meng-clone ILUMY-BACKUP. Server mulai dari awal."
     fi
   else
     echo "[Restore] Folder world lokal sudah ada data. Melewati proses restore."
