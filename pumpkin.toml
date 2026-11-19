@@ -1,6 +1,7 @@
 # ==========================================
 # ILUMY Pumpkin Minecraft Server Config
 # Optimized for Hostless (0.5 vCPU / 1GB RAM)
+# Cracked / Offline Mode Enabled
 # ==========================================
 
 default_difficulty = "Normal"
@@ -9,15 +10,18 @@ allow_nether = true
 allow_end = true
 hardcore = false
 
-[server]
-motd = "ILUMY Pumpkin Server"
-max_players = 10
-online_mode = false # Mengizinkan akun original dan offline/crack
-view_distance = 8   # Dioptimalkan untuk 0.5 CPU agar hemat resource
-simulation_distance = 6
-
-[networking]
+[networking.java]
+enabled = true
 address = "0.0.0.0:25565"
+online_mode = false # Izinkan akun crack/offline
+encryption = false
+max_players = 20
+view_distance = 8   # Dioptimasi hemat RAM & CPU
+simulation_distance = 6
+motd = "ILUMY Pumpkin Server (Cracked OK)"
+
+[networking.java.authentication]
+enabled = false # Nonaktifkan auth Mojang agar pemain crack bisa masuk
 
 [networking.bedrock]
 enabled = false
@@ -29,4 +33,4 @@ knockback = true
 
 [player_data]
 save_player_data = true
-save_player_cron_interval = 60 # Autosave player data tiap 60 detik
+save_player_cron_interval = 60
