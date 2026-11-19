@@ -16,14 +16,14 @@ fi
 # 2. Jalankan Playit.gg tunnel di background
 echo "[Playit] Menyalakan Playit.gg tunnel agent..."
 if [ -n "$SECRET_KEY" ]; then
-  echo "[Playit] Menggunakan SECRET_KEY dari Environment Variable..."
-  playit "$SECRET_KEY" &
+  echo "[Playit] Menjalankan Playit dengan SECRET_KEY dari Environment Variable..."
+  playitd --secret "$SECRET_KEY" &
 elif [ -n "$PLAYIT_SECRET_KEY" ]; then
-  echo "[Playit] Menggunakan PLAYIT_SECRET_KEY dari Environment Variable..."
-  playit "$PLAYIT_SECRET_KEY" &
+  echo "[Playit] Menjalankan Playit dengan PLAYIT_SECRET_KEY dari Environment Variable..."
+  playitd --secret "$PLAYIT_SECRET_KEY" &
 else
-  echo "[Playit] SECRET_KEY belum diset. Jalankan mode klaim link..."
-  playit &
+  echo "[Playit] SECRET_KEY belum diset. Menjalankan playitd mode klaim..."
+  playitd &
 fi
 
 # 3. Jalankan daemon auto backup 30 menit di background

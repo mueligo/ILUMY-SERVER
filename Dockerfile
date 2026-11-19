@@ -2,7 +2,7 @@ FROM debian:bookworm-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install dependencies yang dibutuhkan
+# Install dependensi sistem
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     ca-certificates \
@@ -11,15 +11,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     procps \
     && rm -rf /var/lib/apt/lists/*
 
+# Ambil binary resmi playitd dari image resmi ghcr.io/playit-cloud/playit-agent:1.0
+COPY --from=ghcr.io/playit-cloud/playit-agent:1.0 /usr/local/bin/playitd /usr/local/bin/playitd
+RUN chmod +x /usr/local/bin/playitd
+
 # Download binary resmi Pumpkin MC (Linux x86_64)
 RUN curl -fsSL "https://github.com/Pumpkin-MC/Pumpkin/releases/latest/download/pumpkin-X64-Linux" \
     -o /usr/local/bin/pumpkin && \
     chmod +x /usr/local/bin/pumpkin
-
-# Download binary resmi Playit.gg agent (Linux x86_64)
-RUN curl -fsSL "https://github.com/playit-cloud/playit-agent/releases/latest/download/playit-linux-amd64" \
-    -o /usr/local/bin/playit && \
-    chmod +x /usr/local/bin/playit
 
 WORKDIR /pumpkin
 
