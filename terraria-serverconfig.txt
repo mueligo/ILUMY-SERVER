@@ -1,0 +1,11 @@
+world=/tmp/terraria/Worlds/world.wld
+autocreate=2
+worldname=ILUMY
+difficulty=0
+maxplayers=8
+port=7777
+password=
+motd=Welcome to ILUMY Terraria Server!
+worldpath=/tmp/terraria/Worlds
+upnp=0
+secure=1
