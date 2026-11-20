@@ -21,6 +21,7 @@ if [ -n "$SECRET_KEY" ]; then
   else
     echo "[Playit Warning] Playit daemon gagal start."
   fi
+  cat /tmp/playit/playit.log 2>/dev/null || true
 else
   echo "[Playit Warning] SECRET_KEY tidak diset!"
 fi
